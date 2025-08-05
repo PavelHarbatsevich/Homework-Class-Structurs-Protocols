@@ -17,30 +17,27 @@ import UIKit
 //модификаторы доступа.
 
 class School {
-    var students: [Int] = [27, 12, 34]
+    var students: [String] = ["Jordan","Brayant", "Stocton"]
     var nameSchool: String
     
-    init(students: [Int], nameSchool: String) {
+    init(nameSchool: String) {
         self.nameSchool = nameSchool
     }
     
     func getInfoAboutSchool() {
-        print("Name school is \(nameSchool), in school studies \(students)")
-    }
+    print("Name school is  - \(nameSchool), in school studies -  \(students.count) students")
+  }
 }
 
-class Adress: School {
+class Adress {
     var coordinates: (x: Double, y: Double)
     var streetName: String
     
-    init(coordinates: (x: Double, y: Double), streetName: String, students: [Int], nameSchool: String ) {
+    init(coordinates: (x: Double, y: Double), streetName: String) {
         self.coordinates = coordinates
         self.streetName = streetName
-        super.init(students: students, nameSchool: nameSchool)
     }
-    override func getInfoAboutSchool() {
-        print("Name school is \(nameSchool), in school studies \(students[1]) students, adress  is \(streetName) street \(coordinates.x) house \(coordinates.y) frame")
-    }
+    
 }
 
 class Person {
@@ -84,8 +81,8 @@ class Student: Person {
 
 let student = Student(classNumber: 7, infoAboutProgress: (item: "Biology", grade: 9 , item2: "Math", grade2: 5), name: "Lebron", surname: "James", age: 40)
 student.getInfo()
-let adress = Adress(coordinates: (x: 12, y: 22), streetName: "Jordan's", students: [27, 12, 34], nameSchool: "Space Jam")
-adress.getInfoAboutSchool()
+let infoSchool = School(nameSchool: "Spase Jam")
+infoSchool.getInfoAboutSchool()
 
 
 //2. Создайте протокол PaymentMethod с требованиями:
@@ -142,22 +139,23 @@ class CryptoWallet: PaymentMethod {
             return false
         }
     }
-    
-    func processPayment(using method: PaymentMethod, amount: Double) {
-        if balance > 0 && amount <= balance {
-            method.pay(amount: amount)
-            print("Платежи совершены")
-        } else {
-            print("недостаточно средств")
-        }
-    }
-        
 }
+
+func processPayment(using method: CryptoWallet, amount: Double) {
+    var balance = 50.0
+    if balance > 0 && amount <= balance {
+        method.pay(amount: amount)
+        print("Платежи совершены")
+    } else {
+        print("недостаточно средств")
+    }
+}
+
 
 let wallet = CryptoWallet()
 wallet.pay(amount: 25)
 wallet.balance
 wallet.commission
-wallet.processPayment(using: infoPay, amount: 25)
 
+processPayment(using: CryptoWallet(), amount: 50)
 
